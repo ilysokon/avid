@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:annotation-config />
+	
+	<aop:aspectj-autoproxy />
+	
+	<context:component-scan base-package="de.goeuro.report" />
+		
+	<!--  Jasper Reports -->
+	<bean id="csvConfiguration" class="net.sf.jasperreports.export.SimpleCsvMetadataExporterConfiguration">
+	   <property name="fieldDelimiter" value="," />
+	</bean>
+	
+	<bean id="csvJasperExporter" class="de.goeuro.report.jasper.JasperJRCsvExporter">
+	    <property name="exporterConfiguration" ref="csvConfiguration"/>
+	</bean>
+	
+	<bean id="csvGoEuroReportProcessor" class="de.goeuro.report.jasper.GoEuroReportProcessor">
+	    <property name="exporter" ref="csvJasperExporter"/>
+	    <property name="template" value="/reports/goeuro.jrxml"/>
+	</bean>
+	
+	<util:map id="reportFormatToReportProcessorMap" key-type="de.goeuro.report.ReportFormat" map-class="java.util.HashMap">
+        <entry key="CSV" value-ref="csvGoEuroReportProcessor" />
+        <!-- add other report format to report processor entries here -->
+    </util:map>
+    
+    <util:map id="reportProcessors" key-type="de.goeuro.report.ReportName" map-class="java.util.HashMap">
+        <entry key="GOEURO" value-ref="reportFormatToReportProcessorMap" />
+    </util:map>
+</beans>
