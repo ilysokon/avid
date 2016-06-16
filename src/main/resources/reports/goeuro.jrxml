@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 5.6.1.final using JasperReports Library version 5.6.1  -->
+<!-- _id, name, type, latitude, longitude -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="scriptlet" pageWidth="1450" pageHeight="842" columnWidth="1410" leftMargin="30" rightMargin="10" topMargin="10" bottomMargin="30" whenResourceMissingType="Empty" uuid="7161af25-41f9-43bd-b6b2-62c0ecb8680a">
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
@@ -9,23 +10,20 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="statistics.id" class="java.lang.Long">
+	<field name="Id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[id]]></fieldDescription>
 	</field>
-	<field name="marketData.bank" class="java.lang.String">
-		<fieldDescription><![CDATA[marketData.bank]]></fieldDescription>
+	<field name="Name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
 	</field>
-	<field name="marketData.symbol" class="java.lang.String">
-		<fieldDescription><![CDATA[marketData.symbol]]></fieldDescription>
+	<field name="Type" class="java.lang.String">
+		<fieldDescription><![CDATA[type]]></fieldDescription>
 	</field>
-	<field name="marketData.price" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[marketData.price]]></fieldDescription>
+	<field name="Latitude" class="java.lang.Double">
+		<fieldDescription><![CDATA[geoPosition.latitude]]></fieldDescription>
 	</field>
-	<field name="uploadTime" class="java.lang.Long">
-		<fieldDescription><![CDATA[uploadTime]]></fieldDescription>
-	</field>
-	<field name="downloadTime" class="java.lang.Long">
-		<fieldDescription><![CDATA[downloadTime]]></fieldDescription>
+	<field name="Longitude" class="java.lang.Double">
+		<fieldDescription><![CDATA[geoPosition.longitude]]></fieldDescription>
 	</field>
 	<title>
 		<band height="75">
@@ -41,35 +39,28 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bank]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="248" y="35" width="110" height="15" uuid="e890fa62-f0d5-46a0-886e-9481aa954d22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Symbol]]></text>
+				<text><![CDATA[Type]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="357" y="35" width="70" height="15" uuid="1e552026-e2e4-4019-a1a3-8b5f2b4d97af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Price]]></text>
+				<text><![CDATA[Latitude]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="426" y="35" width="200" height="15" uuid="71d2b219-0de8-4493-be9c-a260b5313613"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Upload Time]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="625" y="35" width="110" height="15" uuid="e6b9682f-f7da-4f99-bcf3-e5b25c6ec2e7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Download Time]]></text>
+				<text><![CDATA[Longitude]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -81,34 +72,29 @@
 			<textField>
 				<reportElement x="0" y="1" width="140" height="15" uuid="56eb1069-04e5-46ae-a820-574d99083a0d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{statistics.id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Id}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="139" y="1" width="110" height="15" uuid="56eb1069-04e5-46ae-a820-574d99083a0d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{marketData.bank}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="248" y="1" width="110" height="15" uuid="99bc6d20-1ae5-4a0a-9192-042081a11a3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{marketData.symbol}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Type}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="357" y="1" width="70" height="15" uuid="77072be2-5682-4fee-8aed-156847497236"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{marketData.price}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Latitude}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement stretchType="RelativeToBandHeight" x="426" y="1" width="200" height="15" uuid="c8967b84-e76f-455c-a931-d86448172577"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{uploadTime}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="625" y="1" width="109" height="15" uuid="c8967b84-e76f-455c-a931-d86448172578"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{downloadTime}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Longitude}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
