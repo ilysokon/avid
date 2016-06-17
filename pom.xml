@@ -134,7 +134,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>de.goeuro.GoEuroTest</mainClass>
+							<mainClass>de.goeuro.GoEuroTestApp</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -162,6 +162,11 @@
 								</transformer>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+			
+			                   	<!-- add Main-Class to manifest file -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>de.goeuro.GoEuroTestApp</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
