@@ -1,7 +1,10 @@
 package de.goeuro.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+/**
+ * 
+ * Geo Position
+ *
+ */
 public class GeoPosition {
 	
 	private Double latitude; 
@@ -22,5 +25,13 @@ public class GeoPosition {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
+	}
+	
+	@Override
+	public String toString(){
+		return "\"geoPosition\": {"
+				+ "\"latitude\": " + "\"" + latitude + "\", "
+				+ "\"longitude\": " + "\"" + longitude + "\" "
+				+ "}";
 	}
 }

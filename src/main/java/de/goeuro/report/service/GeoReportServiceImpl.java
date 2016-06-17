@@ -2,9 +2,7 @@ package de.goeuro.report.service;
 
 import java.util.Collection;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.goeuro.api.GeoData;
@@ -14,26 +12,20 @@ import de.goeuro.report.api.ReportRequest;
 import de.goeuro.report.api.ReportResponse;
 
 /**
- * Statistics Report Service Implementation
+ * GoEuro Report Service Implementation
  *
  */
 @Service
 public class GeoReportServiceImpl 
-implements GeoReportService<ReportRequest<Collection<GeoData>>>, BeanFactoryAware{
+implements GeoReportService<ReportRequest<Collection<GeoData>>>{
 	
-	private BeanFactory beanFactory;
+	@Autowired
+	private ReportEngine reportEngine;
 
 	@Override
 	public ReportResponse handle(ReportRequest<Collection<GeoData>> request) throws ReportException {
-		ReportEngine reportEngine = (ReportEngine)beanFactory.getBean("reportEngine");
 		return reportEngine.process(
 				request.getFormat(), request.getReportName(), 
 				request);
-	}
-
-	@Override
-	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-		this.beanFactory = beanFactory;
-		
 	}
 }

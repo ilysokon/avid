@@ -25,7 +25,7 @@ import de.goeuro.report.ReportProcessor;
 /**
  * Base Jasper Report Processor 
  *
- * @param <T>
+ * @param <T> type of data to be processed
  */
 public abstract class JasperReportProcessor<T> 
    implements ReportProcessor<Collection<T>> {
@@ -38,6 +38,7 @@ public abstract class JasperReportProcessor<T>
 	private String template;
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public byte[] process(Collection<T> data) throws ReportException {
 		JasperReport jasperReport;
 	    JasperPrint jasperPrint;

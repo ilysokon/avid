@@ -18,6 +18,8 @@
 	<aop:aspectj-autoproxy />
 	
 	<context:component-scan base-package="de.goeuro" />
+	
+	<util:properties id="config" location="classpath:app.properties"/>
 		
 	<!-- add further client beans configuration here -->
 </beans>

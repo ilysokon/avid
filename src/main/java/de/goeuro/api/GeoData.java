@@ -3,9 +3,8 @@ package de.goeuro.api;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Market Data Statistics unit 
+ * Geo Data 
  *
- * _id, name, type, latitude, longitude
  */
 public class GeoData {
 	
@@ -48,5 +47,15 @@ public class GeoData {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	@Override
+	public String toString(){
+		return "\"geoData\": {"
+				+ "\"id\": " + "\""+ id + "\", "
+				+ "\"name\": " + "\""+ name + "\", "
+				+ "\"type\": " + "\""+ type + "\", "
+				+ geoPosition.toString()
+				+ "}";
 	}
 }

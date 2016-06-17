@@ -6,7 +6,7 @@ import de.goeuro.report.ReportName;
 /**
  * Request for report generating 
  *
- * @param <DATA>
+ * @param <DATA> the type of data the report is based on
  */
 public class ReportRequest<DATA> implements DataProvider<DATA>{
 	// report name to generate

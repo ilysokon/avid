@@ -10,7 +10,7 @@ import de.goeuro.report.api.ReportResponse;
 /**
  * Define Entry point service for report generation 
  *
- * @param <REQ>
+ * @param <REQ> the type of request to be handled by this service
  */
 public interface GeoReportService<REQ extends DataProvider<Collection<GeoData>>> {
 	ReportResponse handle(REQ request) throws ReportException;

@@ -42,8 +42,10 @@ public class GoEuroTestApp {
 	private GoEuroRestClient goEuroRestClient;
 	
 	public void start(final String cityName) {
+		logger.info("send request for geo data");
 		Collection<GeoData> geoData = goEuroRestClient.getGeoData(cityName);
-			
+		logger.info("geo data is received: " + geoData);
+		
 		GoEuroReportRequest reportRequest = new GoEuroReportRequest();
 		reportRequest.setData(geoData);
 		reportRequest.setFormat(ReportFormat.CSV);
@@ -62,24 +64,28 @@ public class GoEuroTestApp {
 	}
 	
 	public static void main(String... args) {
-		logger.info(args);
+		logger.info("goeuro test is started");
 		
+		logger.info("goeuro application context preparing...");
 		@SuppressWarnings("resource")
 		// create main client application context
 		ApplicationContext context = 
 	            new ClassPathXmlApplicationContext(
 	            		new String[]{"classpath:context-client.xml", 
 	            				     "classpath:context-report.xml"} );
-		// get goeuro client
-		GoEuroTestApp client = context.getBean(GoEuroTestApp.class);
 		
-		// set city name if specified
+		logger.info("goeuro application context is prepared");
+		
+		// get goeuro client
+		GoEuroTestApp goEuroTestApp = context.getBean(GoEuroTestApp.class);
+		
+		// check is the city name specified
 		if(args.length > 0){
-			// start client
-			client.start(args[0]);
+			// start test application
+			goEuroTestApp.start(args[0]);
 		}
 		
-		
+		logger.info("goeuro test finished");
     }
 }
 

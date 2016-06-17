@@ -3,7 +3,7 @@ package de.goeuro.report.jasper;
 import de.goeuro.api.GeoData;
 
 /**
- * Report Processor for Statistics 
+ * GoEuro Report Processor 
  *
  */
 public class GoEuroReportProcessor 

@@ -8,6 +8,16 @@ import de.goeuro.report.api.ReportResponse;
  *
  */
 public interface ReportEngine {
+	
+	/**
+	 * Process report
+	 * 
+	 * @param format report format
+	 * @param reportName define what kind of report should be processed
+	 * @param dataProvider report data to be processed
+	 * @return the report in the specified format is filled by data from dataProvider
+	 * @throws ReportException if something went wrong during report processing
+	 */
 	<DATA> ReportResponse process(ReportFormat format, ReportName reportName,
 			DataProvider<DATA> dataProvider)throws ReportException;
 	
