@@ -134,7 +134,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>de.goeuro.client.StatisticsClient</mainClass>
+							<mainClass>de.goeuro.GoEuroTest</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>

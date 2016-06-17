@@ -33,12 +33,12 @@
 	    <property name="template" value="/reports/goeuro.jrxml"/>
 	</bean>
 	
-	<util:map id="reportFormatToReportProcessorMap" key-type="de.goeuro.report.ReportFormat" map-class="java.util.HashMap">
+	<util:map id="reportFormatToReportProcessorMap" key-type="de.goeuro.report.api.ReportFormat" map-class="java.util.HashMap">
         <entry key="CSV" value-ref="csvGoEuroReportProcessor" />
         <!-- add other report format to report processor entries here -->
     </util:map>
     
-    <util:map id="reportProcessors" key-type="de.goeuro.report.ReportName" map-class="java.util.HashMap">
+    <util:map id="reportProcessors" key-type="de.goeuro.report.api.ReportName" map-class="java.util.HashMap">
         <entry key="GOEURO" value-ref="reportFormatToReportProcessorMap" />
     </util:map>
 </beans>
