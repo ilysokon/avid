@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,8 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import de.goeuro.api.GeoData;
-import de.goeuro.client.GoEuroRestClient;
+import de.goeuro.client.GoEuroClient;
+import de.goeuro.client.GoEuroClientException;
 import de.goeuro.client.GoEuroReportRequest;
+import de.goeuro.client.rest.GoEuroRestClient;
+import de.goeuro.client.rest.GoEuroRestClientException;
 import de.goeuro.report.ReportException;
 import de.goeuro.report.ReportFormat;
 import de.goeuro.report.ReportName;
@@ -39,18 +43,19 @@ public class GoEuroTestApp {
 	private GeoReportService<ReportRequest<Collection<GeoData>>> reportService;
 	
 	@Autowired
-	private GoEuroRestClient goEuroRestClient;
+	private GoEuroClient goEuroClient;
 	
 	public void start(final String cityName) {
-		logger.info("send request for geo data");
-		Collection<GeoData> geoData = goEuroRestClient.getGeoData(cityName);
-		logger.info("geo data is received: " + geoData);
-		
-		GoEuroReportRequest reportRequest = new GoEuroReportRequest();
-		reportRequest.setData(geoData);
-		reportRequest.setFormat(ReportFormat.CSV);
-		reportRequest.setReportName(ReportName.GOEURO);
 		try {
+			logger.info("send request for geo data");
+			Collection<GeoData> geoData = goEuroClient.getGeoData(cityName);
+			logger.info("geo data is received: " + geoData);
+			
+			GoEuroReportRequest reportRequest = new GoEuroReportRequest();
+			reportRequest.setData(geoData);
+			reportRequest.setFormat(ReportFormat.CSV);
+			reportRequest.setReportName(ReportName.GOEURO);
+		
 			logger.info("goeuro report generating .... ");
 			ReportResponse response = reportService.handle(reportRequest);
 			FileOutputStream fos = new FileOutputStream (new File(CSV_FILE)); 
@@ -59,6 +64,8 @@ public class GoEuroTestApp {
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} catch (ReportException e) {
+			logger.error(e.getMessage(), e);
+		} catch (GoEuroClientException e) {
 			logger.error(e.getMessage(), e);
 		} 
 	}
