@@ -1,6 +1,8 @@
 package de.goeuro.report;
 
 import de.goeuro.report.api.DataProvider;
+import de.goeuro.report.api.ReportFormat;
+import de.goeuro.report.api.ReportName;
 import de.goeuro.report.api.ReportResponse;
 
 /**

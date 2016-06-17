@@ -1,4 +1,4 @@
-package de.goeuro.report;
+package de.goeuro.report.api;
 
 /*
  * Define all report names

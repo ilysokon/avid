@@ -1,7 +1,5 @@
 package de.goeuro.report.api;
 
-import de.goeuro.report.ReportFormat;
-import de.goeuro.report.ReportName;
 
 /**
  * Request for report generating 
@@ -9,11 +7,11 @@ import de.goeuro.report.ReportName;
  * @param <DATA> the type of data the report is based on
  */
 public class ReportRequest<DATA> implements DataProvider<DATA>{
-	// report name to generate
+	/** report name to generate */
 	private ReportName reportName;
-	// report format to generate
+	/** report format to generate */
 	private ReportFormat format;
-	// data the report is based on
+	/** data the report is based on */
 	private DATA data;
 	
 	public ReportFormat getFormat() {
