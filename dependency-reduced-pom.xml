@@ -19,7 +19,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>de.goeuro.GoEuroTest</mainClass>
+              <mainClass>de.goeuro.GoEuroTestApp</mainClass>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
             </manifest>
@@ -45,6 +45,9 @@
                 </transformer>
                 <transformer>
                   <resource>META-INF/spring.schemas</resource>
+                </transformer>
+                <transformer>
+                  <mainClass>de.goeuro.GoEuroTestApp</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -31,9 +31,6 @@ import de.goeuro.report.service.GeoReportService;
 public class GoEuroTestApp {
 	private static Logger logger = Logger.getLogger(GoEuroTestApp.class);
 	
-	/** default statistics server url */
-	private static String DEFAULT_GOEURO_URL = "http://api.goeuro.com/api/v2/position/suggest/en/";
-	
 	/** csv file name for generating goeuro report */
 	private static String CSV_FILE = "goeuro.csv";
 	

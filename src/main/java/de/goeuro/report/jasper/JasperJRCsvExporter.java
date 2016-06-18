@@ -8,7 +8,7 @@ import net.sf.jasperreports.export.CsvExporterConfiguration;
  * grid-based layout.
  *
  */
-public class JasperJRCsvExporter extends JRCsvExporter {
+class JasperJRCsvExporter extends JRCsvExporter {
 	
     public void setExporterConfiguration(CsvExporterConfiguration exporterConfiguration){
     	setConfiguration(exporterConfiguration);
