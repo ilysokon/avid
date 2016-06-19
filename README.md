@@ -4,11 +4,13 @@ IDE
 Eclipse
 
 Project Structure
-1. GoEuroTestApp
+1. GoEuro Test Application
 de.goeuro
 
+2. GoEuro Model 
+de.goeuro.model
+
 2. GoEuro Client 
-de.goeuro.model - GoEuro Model Classes
 de.goeuro.client - GoEuro Base Client interfaces/classes 
 
 3. GoEuro Client REST Implementation
@@ -29,7 +31,7 @@ de.goeuro.report.jasper
 4.3. Report Service
 de.goeuro.report.service
 
-6. Project Resources:
+5. Project Resources:
 reports/goeuro.jrxml - Jasper Report Template
 app.properties - Application property file
 context-client - Spring client context
@@ -43,7 +45,7 @@ project management is based on Maven
 How to start
 -------------
 Prerequisites:
-1. Java 1.7 or later is properly installed under the system
+1. Java 1.8 is properly installed under the system
 2. Maven (version 3.x is recommended) is properly installed under the system 
 
 
@@ -86,7 +88,7 @@ bash-3.2$ java -jar GoEuroTest.jar "Berlin"
 bash-3.2$ 
 
 
-4. goeuro.scv file will be generated with results like this:
+4. goeuro.scv file will be generated with results like these:
 
 Id,Name,Type,Latitude,Longitude
 376217,Berlin,location,52.52437,13.41053
