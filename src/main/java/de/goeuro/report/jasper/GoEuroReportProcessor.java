@@ -1,6 +1,6 @@
 package de.goeuro.report.jasper;
 
-import de.goeuro.api.GeoData;
+import de.goeuro.model.GeoData;
 
 /**
  * GoEuro Report Processor 

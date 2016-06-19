@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import de.goeuro.api.GeoData;
 import de.goeuro.client.GoEuroClient;
+import de.goeuro.model.GeoData;
 
 /**
  * 

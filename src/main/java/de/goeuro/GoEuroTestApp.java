@@ -11,10 +11,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import de.goeuro.api.GeoData;
 import de.goeuro.client.GoEuroClient;
 import de.goeuro.client.GoEuroClientException;
 import de.goeuro.client.GoEuroReportRequest;
+import de.goeuro.model.GeoData;
 import de.goeuro.report.ReportException;
 import de.goeuro.report.api.ReportFormat;
 import de.goeuro.report.api.ReportName;

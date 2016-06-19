@@ -2,7 +2,7 @@ package de.goeuro.report.service;
 
 import java.util.Collection;
 
-import de.goeuro.api.GeoData;
+import de.goeuro.model.GeoData;
 import de.goeuro.report.ReportException;
 import de.goeuro.report.api.DataProvider;
 import de.goeuro.report.api.ReportResponse;

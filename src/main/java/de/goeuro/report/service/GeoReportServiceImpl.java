@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.goeuro.api.GeoData;
+import de.goeuro.model.GeoData;
 import de.goeuro.report.ReportEngine;
 import de.goeuro.report.ReportException;
 import de.goeuro.report.api.ReportRequest;

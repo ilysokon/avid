@@ -2,7 +2,7 @@ package de.goeuro.client;
 
 import java.util.List;
 
-import de.goeuro.api.GeoData;
+import de.goeuro.model.GeoData;
 
 /**
  * 

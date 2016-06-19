@@ -1,4 +1,4 @@
-package de.goeuro.api;
+package de.goeuro.model;
 
 /**
  * 
