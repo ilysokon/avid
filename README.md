@@ -10,43 +10,47 @@ de.goeuro
 2. GoEuro Model 
 de.goeuro.model
 
-2. GoEuro Client 
+3. GoEuro Client 
 de.goeuro.client - GoEuro Base Client interfaces/classes 
 
-3. GoEuro Client REST Implementation
+4. GoEuro Client REST Implementation
 de.goeuro.client.rest
 
-4. Report Subsystem
+5. Report Subsystem
 Report Subsystem is consist of Report Engine, Jasper Report Implementation and Report Service
 Main entry point is GoEuroReportService
 For the report generating the ReportRequest should be properly formed with Report Name, Report Format and DATA to be specified.  
 
-4.1. Report Engine
+5.1. Report Engine
 de.goeuro.report - Report Engine Base classes
 de.goeuro.report.api - Report Engine API classes 
 
-4.2. Jasper Report Implementation
+5.2. Jasper Report Implementation
 de.goeuro.report.jasper
 
-4.3. Report Service
+5.3. Report Service
 de.goeuro.report.service
 
-5. Project Resources:
+6. Project Resources:
 reports/goeuro.jrxml - Jasper Report Template
 app.properties - Application property file
 context-client - Spring client context
 context-report - Spring report context
 log4j.properties - Log4j properties file
 
-Build Project details:
+
+Build Project details
+----------------------
 project management is based on Maven
 
 
 How to start
 -------------
+
 Prerequisites:
-1. Java 1.8 is properly installed under the system
-2. Maven (version 3.x is recommended) is properly installed under the system 
+  Java 1.8 is properly installed under the system
+  Maven (version 3.x is recommended) is properly installed under the system 
+
 
 
 All actions should be done from the root directory:
@@ -88,7 +92,7 @@ bash-3.2$ java -jar GoEuroTest.jar "Berlin"
 bash-3.2$ 
 
 
-4. goeuro.scv file will be generated with results like these:
+3. goeuro.scv file will be generated with results like these:
 
 Id,Name,Type,Latitude,Longitude
 376217,Berlin,location,52.52437,13.41053
