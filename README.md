@@ -3,7 +3,7 @@ General description
 IDE
 Eclipse
 
-Project Structure
+Project Structure 
 1. GoEuro Test Application
 de.goeuro
 
