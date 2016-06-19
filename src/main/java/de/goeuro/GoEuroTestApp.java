@@ -85,6 +85,8 @@ public class GoEuroTestApp {
 		if(args.length > 0){
 			// start test application
 			goEuroTestApp.start(args[0]);
+		}else {
+			logger.info("The city is not specified as a Program arguments!");
 		}
 		
 		logger.info("goeuro test finished");
