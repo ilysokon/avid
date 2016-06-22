@@ -10,5 +10,8 @@ public class GoEuroClientException extends Exception{
 	public GoEuroClientException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
+	
+	public GoEuroClientException(String message) {
+		super(message);
+	}
 }

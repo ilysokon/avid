@@ -12,5 +12,8 @@ public class GoEuroRestClientException extends GoEuroClientException{
 	public GoEuroRestClientException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
+	
+	public GoEuroRestClientException(String message) {
+		super(message);
+	}
 }
