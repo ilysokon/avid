@@ -1,19 +1,17 @@
 package com.avid.collaboration.tree;
 
-import com.avid.collaboration.NotThreadSafe;
 import com.avid.exception.NullNodeValidationException;
 import com.avid.exception.NodeIsNotInTheTreeValidationException;
 import com.avid.exception.RuntimeValidationException;
 import com.avid.exception.ValidationException;
+import net.jcip.annotations.NotThreadSafe;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Queue;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 @NotThreadSafe
@@ -32,8 +30,8 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
     }
 
     @Override
-    public List<NAryTreeNode<ITEM>> add(final ITEM parent, final List<ITEM> items) {
-        final var nodes = find(parent);
+    public List<NAryTreeNode<ITEM>> add(final ITEM item, final List<ITEM> items) {
+        final var nodes = find(item);
         nodes.forEach(node -> node.add(items));
 
         return nodes;
@@ -85,6 +83,18 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
     }
 
     /**
+     * Validate node is not null
+     *
+     * @param node to be validated for null
+     * @throws RuntimeException if node is null
+     */
+    private void validateNonNull(final NAryTreeNode<ITEM> node) throws RuntimeValidationException {
+        if(node == null) {
+            throw new RuntimeValidationException();
+        }
+    }
+
+    /**
      * Find all nodes in the tree contains the specified item
      *
      * @param item
@@ -106,49 +116,12 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
                 }
 
                 for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    // for-Each loop to iterate over all childrens
                     queue.offer(child);
                 }
             }
         }
 
         return result;
-    }
-
-    private Optional<NAryTreeNode<ITEM>> find(final NAryTreeNode<ITEM> root, Function<ITEM, Boolean> function) {
-        if(root == null) {
-            return Optional.empty();
-        }
-
-        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()) {
-            while(!queue.isEmpty()) {
-                NAryTreeNode<ITEM> node = queue.poll();
-                if (function.apply(node.getItem())) {
-                    return Optional.of(node);
-                }
-
-                for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    // for-Each loop to iterate over all childrens
-                    queue.offer(child);
-                }
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Validate node is not null
-     *
-     * @param node to be validated for null
-     * @throws RuntimeException if node is null
-     */
-    private void validateNonNull(final NAryTreeNode<ITEM> node) throws RuntimeValidationException {
-        if(node == null) {
-            throw new RuntimeValidationException();
-        }
     }
 
     /**
@@ -173,7 +146,6 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
                 }
 
                 for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    // for-Each loop to iterate over all childrens
                     queue.offer(child);
                 }
             }
