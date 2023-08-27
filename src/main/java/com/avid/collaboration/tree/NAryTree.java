@@ -1,7 +1,7 @@
 package com.avid.collaboration.tree;
 
-import com.avid.exception.NullNodeValidationException;
-import com.avid.exception.NodeIsNotInTheTreeValidationException;
+import com.avid.exception.NodeNullPointerException;
+import com.avid.exception.NodeNotFoundException;
 import com.avid.exception.RuntimeValidationException;
 import com.avid.exception.ValidationException;
 import net.jcip.annotations.NotThreadSafe;
@@ -132,7 +132,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
      */
     private NAryTreeNode<ITEM> validate(final NAryTreeNode<ITEM> nodeToBeValidated) throws ValidationException {
         if(nodeToBeValidated == null) {
-            throw new NullNodeValidationException();
+            throw new NodeNullPointerException();
         }
 
         Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
@@ -150,7 +150,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
             }
         }
 
-        throw new NodeIsNotInTheTreeValidationException();
+        throw new NodeNotFoundException();
     }
 
     private List<NAryTreeNode<ITEM>> search(final NAryTreeNode<ITEM> startNode, final Function<ITEM, Boolean> function) {
