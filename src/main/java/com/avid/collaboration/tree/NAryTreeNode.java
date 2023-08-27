@@ -6,17 +6,21 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @NotThreadSafe
 public class NAryTreeNode<ITEM extends Comparable<ITEM>> {
+    private final UUID id;
     private final ITEM item;
     private List<NAryTreeNode<ITEM>> children = new LinkedList<>();
 
     NAryTreeNode(final ITEM item) {
+        this.id = UUID.randomUUID();
         this.item = item;
     }
 
     NAryTreeNode(final NAryTreeNode<ITEM> node) {
+        this.id = node.id;
         this.item = node.item;
         this.children = new ArrayList<>(node.children);
     }
@@ -63,11 +67,11 @@ public class NAryTreeNode<ITEM extends Comparable<ITEM>> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NAryTreeNode<?> that = (NAryTreeNode<?>) o;
-        return Objects.equals(item, that.item) && Objects.equals(children, that.children);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(item, children);
+        return Objects.hash(id);
     }
 }

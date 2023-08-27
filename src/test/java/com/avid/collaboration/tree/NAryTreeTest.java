@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NAryTreeTest {
     NAryTree<Item> tree;
@@ -60,12 +59,14 @@ class NAryTreeTest {
         tree.removeChildren(root, List.of(item15));
         tree.removeChildren(node13, List.of(item132));
 
-        assertEquals(expectedTree(), tree);
+        final var expected = expectedTree();
+        assertEquals(expected, tree);
+        assertEquals(expected.hashCode(), tree.hashCode());
 
         final var result =
                 tree.search(new FilterBYItems(List.of(new Item(111), new Item(122))));
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
     }
 
     @Test
@@ -138,11 +139,6 @@ class NAryTreeTest {
         }
     }
 
-    class Book {
-        String title;
-        String author;
-    }
-
     NAryTree<Item> expectedTree() throws Exception {
         Item item1 = new Item(1);
         final var root = new NAryTreeNode<Item>(item1);
@@ -152,8 +148,7 @@ class NAryTreeTest {
         Item item12 = new Item(12);
         Item item13 = new Item(13);
         Item item14 = new Item(14);
-        Item item15 = new Item(15);
-        final var node11 = expectedTree.add(root, item11);
+        expectedTree.add(root, item11);
         final var node12 = expectedTree.add(root, item12);
         final var node13 = expectedTree.add(root, item13);
         final var node14 = expectedTree.add(root, item14);
@@ -161,15 +156,15 @@ class NAryTreeTest {
         Item item121 = new Item(121);
         Item item122 = new Item(122);
         Item item123 = new Item(123);
-        final var node121 = expectedTree.add(node12, item121);
-        final var node122 = expectedTree.add(node12, item122);
-        final var node123 = expectedTree.add(node12, item123);
+        expectedTree.add(node12, item121);
+        expectedTree.add(node12, item122);
+        expectedTree.add(node12, item123);
 
         Item item131 = new Item(131);
-        final var node131 = expectedTree.add(node13, item131);
+        expectedTree.add(node13, item131);
 
         Item item141 = new Item(141);
-        final var node141 = expectedTree.add(node14, item141);
+        expectedTree.add(node14, item141);
 
         return expectedTree;
     }

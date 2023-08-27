@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.function.Function;
 
@@ -141,8 +140,8 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         while(!queue.isEmpty()) {
             while(!queue.isEmpty()) {
                 NAryTreeNode<ITEM> node = queue.poll();
-                if (nodeToBeValidated == node) {
-                    return nodeToBeValidated;
+                if (nodeToBeValidated.equals(node)) {
+                    return node;
                 }
 
                 for (NAryTreeNode<ITEM> child : node.getChildren()) {
@@ -184,16 +183,67 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         return result;
     }
 
+    private boolean equals(final NAryTree<ITEM> other) {
+        if(other == null) {
+            return false;
+        }
+
+        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
+        queue.offer(root);
+        Queue<NAryTreeNode<ITEM>> otherQueue = new LinkedList<>();
+        otherQueue.offer(other.root);
+
+        while(!queue.isEmpty() && !otherQueue.isEmpty()) {
+            while(!queue.isEmpty() && !otherQueue.isEmpty()) {
+                var node = queue.poll();
+                var otherNode = otherQueue.poll();
+                if (queue.isEmpty() && !otherQueue.isEmpty()
+                        || !queue.isEmpty() && otherQueue.isEmpty()) {
+                    return false;
+                }
+
+                if (!node.getItem().equals(otherNode.getItem())) {
+                    return false;
+                }
+
+                for (var child : node.getChildren()) {
+                    queue.offer(child);
+                }
+                for (var child : otherNode.getChildren()) {
+                    otherQueue.offer(child);
+                }
+            }
+        }
+
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NAryTree<?> nAryTree = (NAryTree<?>) o;
-        return Objects.equals(root, nAryTree.root);
+        NAryTree<ITEM> nAryTree = (NAryTree<ITEM>) o;
+        return equals(nAryTree);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(root);
+        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        int h = 0;
+        while(!queue.isEmpty()) {
+            while(!queue.isEmpty()) {
+                NAryTreeNode<ITEM> node = queue.poll();
+
+                h += node.getItem().hashCode();
+
+                for (var child : node.getChildren()) {
+                    queue.offer(child);
+                }
+            }
+        }
+
+        return h;
     }
 }
