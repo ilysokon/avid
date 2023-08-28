@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.function.Function;
 
 @NotThreadSafe
 public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<ITEM> {
@@ -70,7 +69,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
 
     @Override
     public List<NAryTreeNode<ITEM>> search(Filter<ITEM> filter) {
-        return search(root, filter::filter);
+        return search(root, filter);
     }
 
     @Override
@@ -104,23 +103,10 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
             return Collections.emptyList();
         }
 
-        final var result = new ArrayList<NAryTreeNode<ITEM>>();
-        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()) {
-            while(!queue.isEmpty()) {
-                NAryTreeNode<ITEM> node = queue.poll();
-                if (item.equals(node.getItem())) {
-                    result.add(node);
-                }
+        final var searchByItemVisitor = new SearchByItemVisitor(item);
+        traversal(root, searchByItemVisitor);
 
-                for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    queue.offer(child);
-                }
-            }
-        }
-
-        return result;
+        return searchByItemVisitor.result;
     }
 
     /**
@@ -135,52 +121,26 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
             throw new NodeNullPointerException();
         }
 
-        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()) {
-            while(!queue.isEmpty()) {
-                NAryTreeNode<ITEM> node = queue.poll();
-                if (nodeToBeValidated.equals(node)) {
-                    return node;
-                }
+        final var validateVisitor = new ValidateVisitor(nodeToBeValidated);
 
-                for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    queue.offer(child);
-                }
-            }
+        traversal(root, validateVisitor);
+
+        if(validateVisitor.result == null) {
+            throw new NodeNotFoundException();
+        } else {
+           return validateVisitor.result;
         }
-
-        throw new NodeNotFoundException();
     }
 
-    private List<NAryTreeNode<ITEM>> search(final NAryTreeNode<ITEM> startNode, final Function<ITEM, Boolean> function) {
+    private List<NAryTreeNode<ITEM>> search(final NAryTreeNode<ITEM> startNode, final Filter<ITEM> filter) {
         if(startNode == null) {
             return Collections.emptyList();
         }
 
-        List<NAryTreeNode<ITEM>> result = preorderTraversal(startNode, function);
+        final var searchVisitor = new SearchByFilterVisitor(filter);
+        traversal(startNode, searchVisitor);
 
-        return result;
-    }
-
-    private List<NAryTreeNode<ITEM>> preorderTraversal(final NAryTreeNode<ITEM> startNode, final Function<ITEM, Boolean> action) {
-        Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
-        queue.offer(startNode);
-        List<NAryTreeNode<ITEM>> result = new ArrayList<>();
-        while(!queue.isEmpty()) {
-            while(!queue.isEmpty()) {
-                NAryTreeNode<ITEM> node = queue.poll();
-                if (action.apply(node.getItem())) {
-                    result.add(node);
-                }
-
-                for (NAryTreeNode<ITEM> child : node.getChildren()) {
-                    queue.offer(child);
-                }
-            }
-        }
-
-        return result;
+        return searchVisitor.result;
     }
 
     private boolean equals(final NAryTree<ITEM> other) {
@@ -228,22 +188,108 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
 
     @Override
     public int hashCode() {
+        final var hasCodeVisitor = new HashCodeVisitor();
+
+        traversal(root, hasCodeVisitor);
+
+        return hasCodeVisitor.hashCode;
+    }
+
+    private void traversal(final NAryTreeNode<ITEM> startNode, final Visitor<NAryTreeNode<ITEM>> visitor) {
         Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
-        queue.offer(root);
+        queue.offer(startNode);
 
         int h = 0;
         while(!queue.isEmpty()) {
             while(!queue.isEmpty()) {
                 NAryTreeNode<ITEM> node = queue.poll();
 
-                h += node.getItem().hashCode();
+                if (visitor.apply(node)) {
+                   return;
+                }
 
                 for (var child : node.getChildren()) {
                     queue.offer(child);
                 }
             }
         }
+    }
 
-        return h;
+    interface Visitor<T> {
+        boolean apply(T node);
+    }
+
+    class ValidateVisitor implements Visitor<NAryTreeNode<ITEM>> {
+        final NAryTreeNode<ITEM> nodeToBeValidated;
+        NAryTreeNode<ITEM> result;
+
+        ValidateVisitor(final NAryTreeNode<ITEM> nodeToBeValidated) {
+            this.nodeToBeValidated = nodeToBeValidated;
+        }
+
+        @Override
+        public boolean apply(final NAryTreeNode<ITEM> node) {
+            if (nodeToBeValidated.equals(node)) {
+                result = node;
+
+                // node is found, no need to continue
+                return true;
+            }
+
+            // continue
+            return false;
+        }
+    }
+
+    class HashCodeVisitor implements Visitor<NAryTreeNode<ITEM>> {
+        int hashCode = 0;
+
+        @Override
+        public boolean apply(NAryTreeNode<ITEM> node) {
+            hashCode += node.getItem().hashCode();
+
+            // always continue
+            return false;
+        }
+    }
+
+    class SearchByFilterVisitor implements Visitor<NAryTreeNode<ITEM>> {
+        final List<NAryTreeNode<ITEM>> result;
+        final Filter<ITEM> filter;
+
+        public SearchByFilterVisitor(Filter<ITEM> filter) {
+            this.filter = filter;
+            result = new ArrayList<>();
+        }
+
+        @Override
+        public boolean apply(NAryTreeNode<ITEM> node) {
+            if (filter.filter(node.getItem())) {
+                result.add(node);
+            }
+
+            // always continue
+            return false;
+        }
+    }
+
+    class SearchByItemVisitor implements Visitor<NAryTreeNode<ITEM>> {
+        private final List<NAryTreeNode<ITEM>> result;
+        private final ITEM item;
+
+        public SearchByItemVisitor(final ITEM item) {
+            this.item = item;
+            this.result = new ArrayList<>();
+        }
+
+        @Override
+        public boolean apply(NAryTreeNode<ITEM> node) {
+            if (item.equals(node.getItem())) {
+                result.add(node);
+            }
+
+            // always continue
+            return false;
+        }
     }
 }

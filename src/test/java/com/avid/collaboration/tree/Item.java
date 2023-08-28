@@ -2,10 +2,10 @@ package com.avid.collaboration.tree;
 
 import java.util.Objects;
 
-public class Item implements Comparable<Item> {
+class Item implements Comparable<Item> {
     private final Number number;
 
-    public Item(Number number) {
+    Item(final Number number) {
         this.number = number;
     }
 

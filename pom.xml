@@ -10,13 +10,6 @@
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-		<log4j.version>1.2.14</log4j.version>
-		<commons-lang.version>2.6</commons-lang.version>
-		<commons-httpclient.version>3.1</commons-httpclient.version>
-		<commons-io.version>2.4</commons-io.version>
-	</properties>
-
 	<repositories>
 		<repository>
 			<id>org.jboss.repository.release</id>
@@ -67,7 +60,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
