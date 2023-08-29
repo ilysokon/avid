@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class NAryTreeTest {
 
     @Test
-    void childrenRemovedCorrectly() throws Exception {
+    void childrenRemovedCorrectly() throws ValidationException {
         final var rootTtem = new Item(1);
         final var root = new NAryTreeNode<>(rootTtem);
         final var tree = new NAryTree<>(root);
@@ -60,7 +60,7 @@ class NAryTreeTest {
     }
 
     @Test
-    void subtree() throws Exception {
+    void subtree() throws ValidationException {
         final var rootTtem = new Item(1);
         final var root = new NAryTreeNode<>(rootTtem);
         final var tree = new NAryTree<>(root);
@@ -221,7 +221,7 @@ class NAryTreeTest {
         }
     }
 
-    private NAryTree<Item> expectedTree() throws Exception {
+    private NAryTree<Item> expectedTree() throws ValidationException {
         final var item1 = new Item(1);
         final var root = new NAryTreeNode<>(item1);
         final var expectedTree = new NAryTree<>(root);
@@ -251,17 +251,17 @@ class NAryTreeTest {
         return expectedTree;
     }
 
-    private List<NAryTree<Item>> expectedSubTrees() throws Exception {
+    private List<NAryTree<Item>> expectedSubTrees() {
         final var item111 = new Item(111);
-        final var node111 = new NAryTreeNode<Item>(item111);
+        final var node111 = new NAryTreeNode<>(item111);
         final var expectedSubTree1 = new NAryTree<>(node111);
 
         final var item112 = new Item(112);
-        final var node112 = new NAryTreeNode<Item>(item112);
+        final var node112 = new NAryTreeNode<>(item112);
         final var expectedSubTree2 = new NAryTree<>(node112);
 
         final var item113 = new Item(113);
-        final var node113 = new NAryTreeNode<Item>(item113);
+        final var node113 = new NAryTreeNode<>(item113);
         final var expectedSubTree3 = new NAryTree<>(node113);
 
         return List.of(expectedSubTree1, expectedSubTree2, expectedSubTree3);
