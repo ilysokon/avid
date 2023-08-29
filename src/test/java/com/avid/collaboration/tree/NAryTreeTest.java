@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class NAryTreeTest {
 
     @Test
-    void childrenRemovedCorrectly() throws ValidationException {
+    void removeChildren() throws ValidationException {
         final var rootTtem = new Item(1);
         final var root = new NAryTreeNode<>(rootTtem);
         final var tree = new NAryTree<>(root);
