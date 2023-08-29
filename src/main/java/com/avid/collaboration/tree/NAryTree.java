@@ -22,7 +22,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
      * @param node node the tree be created at
      * @throws RuntimeValidationException if specified node is null
      */
-    NAryTree(final NAryTreeNode<ITEM> node) throws RuntimeValidationException {
+    public NAryTree(final NAryTreeNode<ITEM> node) throws RuntimeValidationException {
         validateNonNull(node);
         this.root = new NAryTreeNode<>(node);
     }
@@ -154,24 +154,22 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         otherQueue.offer(other.root);
 
         while(!queue.isEmpty() && !otherQueue.isEmpty()) {
-            while(!queue.isEmpty() && !otherQueue.isEmpty()) {
-                var node = queue.poll();
-                var otherNode = otherQueue.poll();
-                if (queue.isEmpty() && !otherQueue.isEmpty()
-                        || !queue.isEmpty() && otherQueue.isEmpty()) {
-                    return false;
-                }
+            var node = queue.poll();
+            var otherNode = otherQueue.poll();
+            if (queue.isEmpty() && !otherQueue.isEmpty()
+                    || !queue.isEmpty() && otherQueue.isEmpty()) {
+                return false;
+            }
 
-                if (!node.getItem().equals(otherNode.getItem())) {
-                    return false;
-                }
+            if (!node.getItem().equals(otherNode.getItem())) {
+                return false;
+            }
 
-                for (var child : node.getChildren()) {
-                    queue.offer(child);
-                }
-                for (var child : otherNode.getChildren()) {
-                    otherQueue.offer(child);
-                }
+            for (var child : node.getChildren()) {
+                queue.offer(child);
+            }
+            for (var child : otherNode.getChildren()) {
+                otherQueue.offer(child);
             }
         }
 
@@ -199,27 +197,24 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         Queue<NAryTreeNode<ITEM>> queue = new LinkedList<>();
         queue.offer(startNode);
 
-        int h = 0;
         while(!queue.isEmpty()) {
-            while(!queue.isEmpty()) {
-                NAryTreeNode<ITEM> node = queue.poll();
+            NAryTreeNode<ITEM> node = queue.poll();
 
-                if (visitor.apply(node)) {
-                   return;
-                }
+            if (visitor.apply(node)) {
+               return;
+            }
 
-                for (var child : node.getChildren()) {
-                    queue.offer(child);
-                }
+            for (var child : node.getChildren()) {
+                queue.offer(child);
             }
         }
     }
 
-    interface Visitor<T> {
+    private interface Visitor<T> {
         boolean apply(T node);
     }
 
-    class ValidateVisitor implements Visitor<NAryTreeNode<ITEM>> {
+    private class ValidateVisitor implements Visitor<NAryTreeNode<ITEM>> {
         final NAryTreeNode<ITEM> nodeToBeValidated;
         NAryTreeNode<ITEM> result;
 
@@ -241,7 +236,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         }
     }
 
-    class HashCodeVisitor implements Visitor<NAryTreeNode<ITEM>> {
+    private class HashCodeVisitor implements Visitor<NAryTreeNode<ITEM>> {
         int hashCode = 0;
 
         @Override
@@ -253,7 +248,7 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         }
     }
 
-    class SearchByFilterVisitor implements Visitor<NAryTreeNode<ITEM>> {
+    private class SearchByFilterVisitor implements Visitor<NAryTreeNode<ITEM>> {
         final List<NAryTreeNode<ITEM>> result;
         final Filter<ITEM> filter;
 
@@ -273,11 +268,11 @@ public class NAryTree<ITEM extends Comparable<ITEM>> implements ArbitraryTree<IT
         }
     }
 
-    class SearchByItemVisitor implements Visitor<NAryTreeNode<ITEM>> {
+    private class SearchByItemVisitor implements Visitor<NAryTreeNode<ITEM>> {
         private final List<NAryTreeNode<ITEM>> result;
         private final ITEM item;
 
-        public SearchByItemVisitor(final ITEM item) {
+        private SearchByItemVisitor(final ITEM item) {
             this.item = item;
             this.result = new ArrayList<>();
         }

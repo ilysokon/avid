@@ -14,7 +14,7 @@ public class NAryTreeNode<ITEM extends Comparable<ITEM>> {
     private final ITEM item;
     private List<NAryTreeNode<ITEM>> children = new LinkedList<>();
 
-    NAryTreeNode(final ITEM item) {
+    public NAryTreeNode(final ITEM item) {
         this.id = UUID.randomUUID();
         this.item = item;
     }
@@ -25,7 +25,7 @@ public class NAryTreeNode<ITEM extends Comparable<ITEM>> {
         this.children = new ArrayList<>(node.children);
     }
 
-    ITEM getItem() {
+    public ITEM getItem() {
         return item;
     }
 
